@@ -107,13 +107,13 @@ def setup_platform(
         EtaSensor(config, hass, get_entity_name(config, kreis2 + "/0/11125/2121"), var + kreis2 + "/0/11125/2121", TEMP_CELSIUS),
         EtaSensor(config, hass, get_entity_name(config, lager + "/0/0/12015"), var + lager + "/0/0/12015", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
         EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12016"), var + kessel + "/0/0/12016", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
+        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12016") + " Energie", var + kessel + "/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8),
         EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12180"), var + kessel + "/0/0/12180", PRESSURE_BAR, device_class = SensorDeviceClass.PRESSURE),
         EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12011"), var + kessel + "/0/0/12011", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
         EtaSensor(config, hass, get_entity_name(config, solar + "/0/11139/0"), var + solar + "/0/11139/0", TEMP_CELSIUS),
         EtaSensor(config, hass, get_entity_name(config, solar + "/0/0/12379"), var + solar + "/0/0/12379", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
         EtaSensor(config, hass, get_entity_name(config, solar + "/0/0/12354"), var + solar + "/0/0/12354", PERCENTAGE, device_class = SensorDeviceClass.MOISTURE),
-        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12016"), var + kessel + "/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING),
-        EtaSensor(config, hass, get_entity_name(config, solar + "/0/0/12349") + " Energie", var + solar + "/0/0/12349", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8)
+        EtaSensor(config, hass, get_entity_name(config, solar + "/0/0/12349"), var + solar + "/0/0/12349", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING)
     ]
     add_entities( entities )
 
