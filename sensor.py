@@ -70,11 +70,13 @@ def get_entity_name(
     uri_prefix = "/"+"/".join(uri.removeprefix("/").split("/")[0:2])
     name_prefix = ""
     name = "unknown"
-    for o in doc.iterfind('//xsi:object', namespaces=ns):
+    for o in doc.iterfind('//xsi:fub', namespaces=ns):
         if o.attrib.get('uri') == uri_prefix:
             name_prefix = o.attrib.get('name')
+    for o in doc.iterfind('//xsi:object', namespaces=ns):
         if o.attrib.get('uri') == uri:
             name = o.attrib.get('name')
+            break
     return f"{name_prefix} {name}"
 
 
