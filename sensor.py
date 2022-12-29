@@ -38,7 +38,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import generate_entity_id
 
 # See https://github.com/home-assistant/core/blob/dev/homeassistant/const.py
-from homeassistant.const import (CONF_HOST, CONF_PORT, TEMP_CELSIUS, ENERGY_KILO_WATT_HOUR, POWER_KILO_WATT, MASS_KILOGRAMS, PRESSURE_BAR)
+from homeassistant.const import (CONF_HOST, CONF_PORT, TEMP_CELSIUS, ENERGY_KILO_WATT_HOUR, POWER_KILO_WATT, MASS_KILOGRAMS, PRESSURE_BAR, PERCENTAGE)
 
 
 # See https://community.home-assistant.io/t/problem-with-scan-interval/139031
@@ -87,6 +87,7 @@ def setup_platform(
     kessel = "/264/10891"
     puffer = "/120/10601"
     lager = "/264/10211"
+    solar = "/120/10221"
     kreis1 = "/120/10101"
     kreis2 = "/120/10102"
 
@@ -100,7 +101,12 @@ def setup_platform(
         EtaSensor(config, hass, get_entity_name(config, lager + "/0/0/12015"), var + lager + "/0/0/12015", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
         EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12016"), var + kessel + "/0/0/12016", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
         EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12180"), var + kessel + "/0/0/12180", PRESSURE_BAR, device_class = SensorDeviceClass.PRESSURE),
-        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12016") + " Energie", var + kessel + "/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8)
+        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12011"), var + kessel + "/0/0/12011", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
+        EtaSensor(config, hass, get_entity_name(config, solar + "/0/11139/0"), var + solar + "/0/11139/0", TEMP_CELSIUS),
+        EtaSensor(config, hass, get_entity_name(config, solar + "/0/0/12379") + " Solar", var + solar + "/0/0/12379", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
+        EtaSensor(config, hass, get_entity_name(config, solar + "/0/0/12354"), var + solar + "/0/0/12354", PERCENTAGE, device_class = SensorDeviceClass.MOISTURE),
+        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12016") + " gesamt Solar", var + kessel + "/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING),
+        EtaSensor(config, hass, get_entity_name(config, solar + "/0/0/12349") + " Energie", var + solar + "/0/0/12349", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8)
     ]
     add_entities( entities )
 
