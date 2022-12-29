@@ -131,8 +131,8 @@ class EtaSensor(SensorEntity):
         self.port = config.get(CONF_PORT)
         
         # This must be a unique value within this domain. This is done use serial number of device
-        serial1 = requests.get(get_base_url(config, VAR_PATH) + "/40/10021/0/0/12489")
-        serial2 = requests.get(get_base_url(config, VAR_PATH) + "/40/10021/0/0/12490")
+        serial1 = requests.get(get_base_url(config, VAR_PATH) + "/264/10891/0/0/12489")
+        serial2 = requests.get(get_base_url(config, VAR_PATH) + "/264/10891/0/0/12490")
         
         # Parse
         serial1 = xmltodict.parse(serial1.text)
