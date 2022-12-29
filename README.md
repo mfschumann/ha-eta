@@ -2,7 +2,7 @@
 
 Uses the ETA REST API to get sensor values.
 
-Note: You have to activate the API on your pellet heater first: see documentation http://www.holzheizer-forum.de/attachment/28434-eta-restful-v1-1-pdf/
+Note: You have to activate the API on your pellet heater first: see documentation https://www.meineta.at/javax.faces.resource/downloads/ETA-RESTful-v1.2.pdf.xhtml?ln=default&v=0
        
 Check if the access to the ETA API works using http://<YOUR-ETA-IP>:8080/user/menu in your browser first.
  
