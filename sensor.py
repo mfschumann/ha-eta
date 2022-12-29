@@ -88,7 +88,7 @@ def setup_platform(
 ) -> None:
     """Set up the sensor platform."""
     
-    _LOGGER.warning("ETA Integration - setup platform")
+    _LOGGER.info("ETA Integration - setup platform")
     
     var = "/user/var"
     kessel = "/264/10891"
@@ -136,7 +136,7 @@ class EtaSensor(SensorEntity):
           - unique_id - globally unique id of sensor, e.g. "eta_11.123488_outside_temp", based on serial number
         
         """
-        _LOGGER.warning("ETA Integration - init sensor")
+        _LOGGER.info(f"ETA Integration - init sensor '{name}' at URI {uri}")
         
         self._attr_state_class = state_class
         self._attr_device_class = device_class
