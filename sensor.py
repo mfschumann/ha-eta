@@ -83,16 +83,24 @@ def setup_platform(
     
     _LOGGER.warning("ETA Integration - setup platform")
 
+    var = "/user/var"
+    kessel = "/264/10891"
+    puffer = "/120/10601"
+    lager = "/264/10211"
+    kreis1 = "/120/10101"
+    kreis2 = "/120/10102"
+
     entities = [
-        EtaSensor(config, hass, get_entity_name(config, "/120/10601/0/0/12197"), "/user/var/120/10601/0/0/12197", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, "/264/10891/0/0/12077"), "/user/var/264/10891/0/0/12077", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
-        EtaSensor(config, hass, get_entity_name(config, "/264/10891/0/0/12006"), "/user/var/264/10891/0/0/12006", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, "/264/10891/0/11109/0"), "/user/var/264/10891/0/11109/0", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, "/120/10101/0/11125/2121") + " Vorlauf Heizkreis 1", "/user/var/120/10101/0/11125/2121", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, "/120/10102/0/11125/2121")+ " Vorlauf Heizkreis 2", "/user/var/120/10102/0/11125/2121", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, "/264/10211/0/0/12015"), "/user/var/264/10211/0/0/12015", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
-        EtaSensor(config, hass, get_entity_name(config, "/264/10891/0/0/12016"), "/user/var/264/10891/0/0/12016", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
+        EtaSensor(config, hass, get_entity_name(config, puffer + "/0/0/12197"), var + puffer + "/0/0/12197", TEMP_CELSIUS),
+        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12077"), var + kessel + "/0/0/12077", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
+        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12006"), var + kessel + "/0/0/12006", TEMP_CELSIUS),
+        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/11109/0"), var + kessel + "/0/11109/0", TEMP_CELSIUS),
+        EtaSensor(config, hass, get_entity_name(config, kreis1 + "/0/11125/2121") + " Vorlauf Heizkreis 1", var + kreis1 + "/0/11125/2121", TEMP_CELSIUS),
+        EtaSensor(config, hass, get_entity_name(config, kreis2 + "/0/11125/2121")+ " Vorlauf Heizkreis 2", var + kreis2 + "/0/11125/2121", TEMP_CELSIUS),
+        EtaSensor(config, hass, get_entity_name(config, lager + "/0/0/12015"), var + lager + "/0/0/12015", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
+        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12016"), var + kessel + "/0/0/12016", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
         EtaSensor(config, hass, get_entity_name(config, "/264/10891/0/0/12016") + " Energie", "/user/var/264/10891/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8)
+        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12016") + " Energie", var + kessel + "/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8)
     ]
     add_entities( entities )
 
