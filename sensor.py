@@ -91,6 +91,7 @@ def setup_platform(
     _LOGGER.info("ETA Integration - setup platform")
     
     var = "/user/var"
+    sys = "/120/10241"
     kessel = "/264/10891"
     puffer = "/120/10601"
     lager = "/264/10211"
@@ -99,10 +100,11 @@ def setup_platform(
     kreis2 = "/120/10102"
 
     entities = [
-        EtaSensor(config, hass, get_entity_name(config, puffer + "/0/0/12197"), var + puffer + "/0/0/12197", TEMP_CELSIUS),
+        EtaSensor(config, hass, get_entity_name(config, sys + "/0/11127/0"), var + puffer + "/0/11127/0", TEMP_CELSIUS),
         EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12077"), var + kessel + "/0/0/12077", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
         EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12006"), var + kessel + "/0/0/12006", TEMP_CELSIUS),
         EtaSensor(config, hass, get_entity_name(config, kessel + "/0/11109/0"), var + kessel + "/0/11109/0", TEMP_CELSIUS),
+        EtaSensor(config, hass, get_entity_name(config, puffer + "/0/0/13192"), var + puffer + "/0/0/13192", PERCENTAGE, device_class = SensorDeviceClass.BATTERY),
         EtaSensor(config, hass, get_entity_name(config, kreis1 + "/0/11125/2121"), var + kreis1 + "/0/11125/2121", TEMP_CELSIUS),
         EtaSensor(config, hass, get_entity_name(config, kreis2 + "/0/11125/2121"), var + kreis2 + "/0/11125/2121", TEMP_CELSIUS),
         EtaSensor(config, hass, get_entity_name(config, lager + "/0/0/12015"), var + lager + "/0/0/12015", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
