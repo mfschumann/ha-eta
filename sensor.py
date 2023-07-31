@@ -140,7 +140,7 @@ class EtaSensor(SensorEntity):
         if name is None:
             name = get_entity_name(config, uri)
 
-        _LOGGER.info(f"ETA Integration - init sensor '{name}' at URI {get_base_url(config, VAR_PATH) + uri}")
+        _LOGGER.info(f"ETA Integration - init sensor '{name}' at URI {VAR_PATH + uri}")
         
         self._attr_state_class = state_class
         self._attr_device_class = device_class
@@ -150,7 +150,7 @@ class EtaSensor(SensorEntity):
         self.entity_id = generate_entity_id(ENTITY_ID_FORMAT, "eta_" + id, hass=hass)
         #self.entity_description = description
         self._attr_native_unit_of_measurement = unit
-        self.uri = get_base_url(config, VAR_PATH) + uri
+        self.uri = VAR_PATH + uri
         self.factor = factor
         self.host = config.get(CONF_HOST)
         self.port = config.get(CONF_PORT)
