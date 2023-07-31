@@ -108,7 +108,7 @@ def setup_platform(
         EtaSensor(config, hass, kreis2 + "/0/11125/2121", TEMP_CELSIUS),
         EtaSensor(config, hass, lager + "/0/0/12015", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
         EtaSensor(config, hass, kessel + "/0/0/12016", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
-        EtaSensor(config, hass, kessel + "/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8),
+        EtaSensor(config, hass, kessel + "/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8, name='Kessel Gesamtverbrauch Energie'),
         EtaSensor(config, hass, kessel + "/0/0/12180", PRESSURE_BAR, device_class = SensorDeviceClass.PRESSURE),
         EtaSensor(config, hass, kessel + "/0/0/12011", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
         EtaSensor(config, hass, solar + "/0/11139/0", TEMP_CELSIUS),
