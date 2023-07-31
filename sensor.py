@@ -90,7 +90,6 @@ def setup_platform(
     
     _LOGGER.info("ETA Integration - setup platform")
     
-    var = "/user/var"
     sys = "/120/10241"
     kessel = "/264/10891"
     puffer = "/120/10601"
@@ -100,22 +99,22 @@ def setup_platform(
     kreis2 = "/120/10102"
 
     entities = [
-        EtaSensor(config, hass, get_entity_name(config, sys + "/0/11127/0"), var + sys + "/0/11127/0", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12077"), var + kessel + "/0/0/12077", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
-        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12006"), var + kessel + "/0/0/12006", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/11109/0"), var + kessel + "/0/11109/0", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, puffer + "/0/0/13192"), var + puffer + "/0/0/13192", PERCENTAGE, device_class = SensorDeviceClass.BATTERY),
-        EtaSensor(config, hass, get_entity_name(config, kreis1 + "/0/11125/2121"), var + kreis1 + "/0/11125/2121", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, kreis2 + "/0/11125/2121"), var + kreis2 + "/0/11125/2121", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, lager + "/0/0/12015"), var + lager + "/0/0/12015", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
-        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12016"), var + kessel + "/0/0/12016", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
-        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12016") + " Energie", var + kessel + "/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8),
-        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12180"), var + kessel + "/0/0/12180", PRESSURE_BAR, device_class = SensorDeviceClass.PRESSURE),
-        EtaSensor(config, hass, get_entity_name(config, kessel + "/0/0/12011"), var + kessel + "/0/0/12011", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
-        EtaSensor(config, hass, get_entity_name(config, solar + "/0/11139/0"), var + solar + "/0/11139/0", TEMP_CELSIUS),
-        EtaSensor(config, hass, get_entity_name(config, solar + "/0/0/12379"), var + solar + "/0/0/12379", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
-        EtaSensor(config, hass, get_entity_name(config, solar + "/0/0/12354"), var + solar + "/0/0/12354", PERCENTAGE, device_class = SensorDeviceClass.MOISTURE),
-        EtaSensor(config, hass, get_entity_name(config, solar + "/0/0/12349"), var + solar + "/0/0/12349", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING)
+        EtaSensor(config, hass, sys + "/0/11127/0", TEMP_CELSIUS),
+        EtaSensor(config, hass, kessel + "/0/0/12077", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
+        EtaSensor(config, hass, kessel + "/0/0/12006", TEMP_CELSIUS),
+        EtaSensor(config, hass, kessel + "/0/11109/0", TEMP_CELSIUS),
+        EtaSensor(config, hass, puffer + "/0/0/13192", PERCENTAGE, device_class = SensorDeviceClass.BATTERY),
+        EtaSensor(config, hass, kreis1 + "/0/11125/2121", TEMP_CELSIUS),
+        EtaSensor(config, hass, kreis2 + "/0/11125/2121", TEMP_CELSIUS),
+        EtaSensor(config, hass, lager + "/0/0/12015", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
+        EtaSensor(config, hass, kessel + "/0/0/12016", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
+        EtaSensor(config, hass, kessel + "/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8),
+        EtaSensor(config, hass, kessel + "/0/0/12180", PRESSURE_BAR, device_class = SensorDeviceClass.PRESSURE),
+        EtaSensor(config, hass, kessel + "/0/0/12011", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
+        EtaSensor(config, hass, solar + "/0/11139/0", TEMP_CELSIUS),
+        EtaSensor(config, hass, solar + "/0/0/12379", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
+        EtaSensor(config, hass, solar + "/0/0/12354", PERCENTAGE, device_class = SensorDeviceClass.MOISTURE),
+        EtaSensor(config, hass, solar + "/0/0/12349", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING)
     ]
     add_entities( entities )
 
@@ -126,7 +125,7 @@ class EtaSensor(SensorEntity):
     #_attr_device_class = SensorDeviceClass.TEMPERATURE
     #_attr_state_class = SensorStateClass.MEASUREMENT
     
-    def __init__(self, config, hass, name, uri, unit, state_class = SensorStateClass.MEASUREMENT, device_class =  SensorDeviceClass.TEMPERATURE, factor = 1.0):
+    def __init__(self, config, hass, uri, unit, state_class = SensorStateClass.MEASUREMENT, device_class =  SensorDeviceClass.TEMPERATURE, factor = 1.0, name = None):
         """
         Initialize sensor.
         
@@ -138,7 +137,10 @@ class EtaSensor(SensorEntity):
           - unique_id - globally unique id of sensor, e.g. "eta_11.123488_outside_temp", based on serial number
         
         """
-        _LOGGER.info(f"ETA Integration - init sensor '{name}' at URI {uri}")
+        if name is None:
+            name = get_entity_name(config, uri)
+
+        _LOGGER.info(f"ETA Integration - init sensor '{name}' at URI {get_base_url(config, VAR_PATH) + uri}")
         
         self._attr_state_class = state_class
         self._attr_device_class = device_class
@@ -148,7 +150,7 @@ class EtaSensor(SensorEntity):
         self.entity_id = generate_entity_id(ENTITY_ID_FORMAT, "eta_" + id, hass=hass)
         #self.entity_description = description
         self._attr_native_unit_of_measurement = unit
-        self.uri = uri
+        self.uri = get_base_url(config, VAR_PATH) + uri
         self.factor = factor
         self.host = config.get(CONF_HOST)
         self.port = config.get(CONF_PORT)
