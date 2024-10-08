@@ -38,7 +38,7 @@ import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.entity import generate_entity_id
 
 # See https://github.com/home-assistant/core/blob/dev/homeassistant/const.py
-from homeassistant.const import (CONF_HOST, CONF_PORT, TEMP_CELSIUS, ENERGY_KILO_WATT_HOUR, POWER_KILO_WATT, MASS_KILOGRAMS, PRESSURE_BAR, PERCENTAGE)
+from homeassistant.const import (CONF_HOST, CONF_PORT, UnitOfTemperature, UnitOfEnergy, UnitOfPower, UnitOfMass, UnitOfPressure, PERCENTAGE)
 
 
 # See https://community.home-assistant.io/t/problem-with-scan-interval/139031
@@ -99,22 +99,22 @@ def setup_platform(
     kreis2 = "/120/10102"
 
     entities = [
-        EtaSensor(config, hass, sys + "/0/11127/0", TEMP_CELSIUS),
-        EtaSensor(config, hass, kessel + "/0/0/12077", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
-        EtaSensor(config, hass, kessel + "/0/0/12006", TEMP_CELSIUS),
-        EtaSensor(config, hass, kessel + "/0/11109/0", TEMP_CELSIUS),
+        EtaSensor(config, hass, sys + "/0/11127/0", UnitOfTemperature.CELSIUS),
+        EtaSensor(config, hass, kessel + "/0/0/12077", UnitOfPower.KILO_WATT, device_class = SensorDeviceClass.POWER),
+        EtaSensor(config, hass, kessel + "/0/0/12006", UnitOfTemperature.CELSIUS),
+        EtaSensor(config, hass, kessel + "/0/11109/0", UnitOfTemperature.CELSIUS),
         EtaSensor(config, hass, puffer + "/0/0/13192", PERCENTAGE, device_class = SensorDeviceClass.BATTERY),
-        EtaSensor(config, hass, kreis1 + "/0/11125/2121", TEMP_CELSIUS),
-        EtaSensor(config, hass, kreis2 + "/0/11125/2121", TEMP_CELSIUS),
-        EtaSensor(config, hass, lager + "/0/0/12015", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
-        EtaSensor(config, hass, kessel + "/0/0/12016", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
-        EtaSensor(config, hass, kessel + "/0/0/12016", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8, name='Kessel Gesamtverbrauch Energie'),
-        EtaSensor(config, hass, kessel + "/0/0/12180", PRESSURE_BAR, device_class = SensorDeviceClass.PRESSURE),
-        EtaSensor(config, hass, kessel + "/0/0/12011", MASS_KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
-        EtaSensor(config, hass, solar + "/0/11139/0", TEMP_CELSIUS),
-        EtaSensor(config, hass, solar + "/0/0/12379", POWER_KILO_WATT, device_class = SensorDeviceClass.POWER),
+        EtaSensor(config, hass, kreis1 + "/0/11125/2121", UnitOfTemperature.CELSIUS),
+        EtaSensor(config, hass, kreis2 + "/0/11125/2121", UnitOfTemperature.CELSIUS),
+        EtaSensor(config, hass, lager + "/0/0/12015", UnitOfMass.KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
+        EtaSensor(config, hass, kessel + "/0/0/12016", UnitOfMass.KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
+        EtaSensor(config, hass, kessel + "/0/0/12016", UnitOfEnergy.KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING, factor = 4.8, name='Kessel Gesamtverbrauch Energie'),
+        EtaSensor(config, hass, kessel + "/0/0/12180", UnitOfPressure.BAR, device_class = SensorDeviceClass.PRESSURE),
+        EtaSensor(config, hass, kessel + "/0/0/12011", UnitOfMass.KILOGRAMS, device_class = SensorDeviceClass.WEIGHT),
+        EtaSensor(config, hass, solar + "/0/11139/0", UnitOfTemperature.CELSIUS),
+        EtaSensor(config, hass, solar + "/0/0/12379", UnitOfPower.KILO_WATT, device_class = SensorDeviceClass.POWER),
         EtaSensor(config, hass, solar + "/0/0/12354", PERCENTAGE, device_class = SensorDeviceClass.MOISTURE),
-        EtaSensor(config, hass, solar + "/0/0/12349", ENERGY_KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING)
+        EtaSensor(config, hass, solar + "/0/0/12349", UnitOfEnergy.KILO_WATT_HOUR, device_class = SensorDeviceClass.ENERGY, state_class = SensorStateClass.TOTAL_INCREASING)
     ]
     add_entities( entities )
 
